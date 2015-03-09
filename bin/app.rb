@@ -1,3 +1,6 @@
 #!/usr/bin/env ruby
 
-puts "Hello World!"
+while command = gets.chomp
+  break if command == "quit"
+  puts command.reverse
+end
