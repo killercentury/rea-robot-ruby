@@ -5,6 +5,12 @@ class Robot
   @y
   @f
 
+  def initialize(x = nil, y = nil, f = nil)
+    @x = x
+    @y = y
+    @f = f
+  end
+
   # get the command from user and execute it if it is valid
   def receiveCommand(command)
     # match the 'PLACE' command
