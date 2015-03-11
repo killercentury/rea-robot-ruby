@@ -1,6 +1,26 @@
 require 'robot'
 
 RSpec.describe Robot do
+  describe '#receiveCommand' do
+    context 'when it is a valid PLACE command' do
+      let(:robot) { Robot.new }
+      let(:command) { 'PLACE 4,4,SOUTH' }
+      it 'executes the PLACE command' do
+        robot.set(0, 0, 'NORTH')
+        robot.receiveCommand(command)
+        expect(robot.report).to eq('4,4,SOUTH')
+      end
+    end
+    context 'when it is an invalid PLACE command' do
+      let(:robot) { Robot.new }
+      let(:command) { 'PLACE 5,0,NORTH' }
+      it 'ignores the PLACE command' do
+        robot.set(0, 0, 'NORTH')
+        robot.receiveCommand(command)
+        expect(robot.report).not_to eq('5,0,NORTH')
+      end
+    end
+  end
   describe '#set' do
     it 'is set to a position and orientation' do
       robot = Robot.new

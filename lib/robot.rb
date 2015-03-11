@@ -1,10 +1,23 @@
 class Robot
 
+  # the boundary should be able to scale but not fixed
   @x
   @y
   @f
 
-  # respond to "PLACE" command
+  # get the command from user and execute it if it is valid
+  def receiveCommand(command)
+    # match the 'PLACE' command
+    match = /^PLACE ([0-4]),([0-4]),(NORTH|EAST|SOUTH|WEST)/.match(command)
+    if match
+      self.set(match[1].to_i, match[2].to_i, match[3])
+    end
+    if command == 'REPORT'
+      puts self.report
+    end
+  end
+
+  # respond to the "PLACE" command and set to the specified position and orientation
   def set(x, y, f)
     @x = x
     @y = y
