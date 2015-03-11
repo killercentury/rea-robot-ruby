@@ -42,6 +42,74 @@ RSpec.describe Robot do
       end
     end
   end
+  describe '#turnLeft' do
+    context 'when it faces the north' do
+      it 'rotates counterclockwise 90% to the west' do
+        robot = Robot.new
+        robot.set(2, 2, 'NORTH')
+        robot.turnLeft
+        expect(robot.report).to eq('2,2,WEST')
+      end
+    end
+    context 'when it faces the east' do
+      it 'rotates counterclockwise 90% to the north' do
+        robot = Robot.new
+        robot.set(2, 2, 'EAST')
+        robot.turnLeft
+        expect(robot.report).to eq('2,2,NORTH')
+      end
+    end
+    context 'when it faces the south' do
+      it 'rotates counterclockwise 90% to the east' do
+        robot = Robot.new
+        robot.set(2, 2, 'SOUTH')
+        robot.turnLeft
+        expect(robot.report).to eq('2,2,EAST')
+      end
+    end
+    context 'when it faces the west' do
+      it 'rotates counterclockwise 90% to the south' do
+        robot = Robot.new
+        robot.set(2, 2, 'WEST')
+        robot.turnLeft
+        expect(robot.report).to eq('2,2,SOUTH')
+      end
+    end
+  end
+  describe '#turnRight' do
+    context 'when it faces the north' do
+      it 'rotates clockwise 90% to the east' do
+        robot = Robot.new
+        robot.set(2, 2, 'NORTH')
+        robot.turnRight
+        expect(robot.report).to eq('2,2,EAST')
+      end
+    end
+    context 'when it faces the east' do
+      it 'rotates clockwise 90% to the south' do
+        robot = Robot.new
+        robot.set(2, 2, 'EAST')
+        robot.turnRight
+        expect(robot.report).to eq('2,2,SOUTH')
+      end
+    end
+    context 'when it faces the south' do
+      it 'rotates clockwise 90% to the west' do
+        robot = Robot.new
+        robot.set(2, 2, 'SOUTH')
+        robot.turnRight
+        expect(robot.report).to eq('2,2,WEST')
+      end
+    end
+    context 'when it faces the west' do
+      it 'rotates clockwise 90% to the north' do
+        robot = Robot.new
+        robot.set(2, 2, 'WEST')
+        robot.turnRight
+        expect(robot.report).to eq('2,2,NORTH')
+      end
+    end
+  end
   describe '#report' do
     it 'reports its current position and orientation' do
       robot = Robot.new

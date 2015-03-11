@@ -24,12 +24,30 @@ class Robot
     end
   end
 
-  def turnLeft()
-    #
+  # turn left based on the current orientation
+  def turnLeft
+    if @f == 'NORTH'
+      @f = 'WEST'
+    elsif @f == 'EAST'
+      @f = 'NORTH'
+    elsif @f == 'SOUTH'
+      @f = 'EAST'
+    elsif @f == 'WEST'
+      @f = 'SOUTH'
+    end
   end
 
-  def turnRight()
-    #
+  # turn right based on the current orientation
+  def turnRight
+    if @f == 'NORTH'
+      @f = 'EAST'
+    elsif @f == 'EAST'
+      @f = 'SOUTH'
+    elsif @f == 'SOUTH'
+      @f = 'WEST'
+    elsif @f == 'WEST'
+      @f = 'NORTH'
+    end
   end
 
   def report()
