@@ -11,8 +11,17 @@ class Robot
     @f = f
   end
 
-  def move()
-    #
+  # move forward based on the current orientation
+  def move
+    if @f == 'NORTH'
+      @y += 1
+    elsif @f == 'EAST'
+      @x += 1
+    elsif @f == 'SOUTH'
+      @y -= 1
+    elsif @f == 'WEST'
+      @x -= 1
+    end
   end
 
   def turnLeft()
