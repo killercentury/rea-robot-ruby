@@ -117,6 +117,20 @@ RSpec.describe Robot do
       expect(robot.report).to eq('2,3,EAST')
     end
   end
+  describe '#isOnTable' do
+    context 'when it is on the table' do
+      let(:robot) { Robot.new(0, 0, 'NORTH') }
+      it 'returns true' do
+      	expect(robot.isOnTable).to eq(true)
+      end
+    end
+    context 'when it is not on the table' do
+      let(:robot) { Robot.new }
+      it 'returns false' do
+      	expect(robot.isOnTable).to eq(false)
+      end
+    end
+  end
   describe '#receiveCommand' do
     context 'when it is a valid PLACE command' do
       let(:robot) { Robot.new(0, 0, 'NORTH') }
@@ -138,19 +152,20 @@ RSpec.describe Robot do
       let(:robot) { Robot.new }
       context 'when it receives a MOVE command' do
         it 'ignores the MOVE command' do
-          robot.receiveCommand('MOVE')
+          expect(robot.receiveCommand('MOVE')).to eq(false)
           expect(robot.report).to eq('Robot is not on the table')
         end
       end
       context 'when it receives a LEFT command' do
         it 'ignores the LEFT command' do
-          robot.receiveCommand('LEFT')
+          expect(robot.receiveCommand('LEFT')).to eq(false)
           expect(robot.report).to eq('Robot is not on the table')
         end
       end
       context 'when it receives a RIGHT command' do
         it 'ignores the RIGHT command' do
           robot.receiveCommand('RIGHT')
+          expect(robot.receiveCommand('RIGHT')).to eq(false)
           expect(robot.report).to eq('Robot is not on the table')
         end
       end
@@ -159,19 +174,19 @@ RSpec.describe Robot do
       let(:robot) { Robot.new(0, 0, 'NORTH') }
       context 'when it receives a MOVE command' do
         it 'executes the MOVE command' do
-          robot.receiveCommand('MOVE')
+          expect(robot.receiveCommand('MOVE')).to eq(true)
           expect(robot.report).to eq('0,1,NORTH')
         end
       end
       context 'when it receives a LEFT command' do
         it 'executes the LEFT command' do
-          robot.receiveCommand('LEFT')
+          expect(robot.receiveCommand('LEFT')).to eq(true)
           expect(robot.report).to eq('0,0,WEST')
         end
       end
       context 'when it receives a RIGHT command' do
         it 'executes the RIGHT command' do
-          robot.receiveCommand('RIGHT')
+          expect(robot.receiveCommand('RIGHT')).to eq(true)
           expect(robot.report).to eq('0,0,EAST')
         end
       end

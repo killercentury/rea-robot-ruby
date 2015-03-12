@@ -11,20 +11,31 @@ class Robot
     @f = f
   end
 
+  def isOnTable
+    return !@x.nil? && !@y.nil? && !@f.nil?
+  end
+
   # get the command from user and execute it if it is valid
   def receiveCommand(command)
     # match the 'PLACE' command
     match = /^PLACE ([0-4]),([0-4]),(NORTH|EAST|SOUTH|WEST)$/.match(command)
     if match
       self.set(match[1].to_i, match[2].to_i, match[3])
-    elsif command == 'MOVE'
-      self.move
-    elsif command == 'LEFT'
-      self.turnLeft
-    elsif command == 'RIGHT'
-      self.turnRight
-    elsif command == 'REPORT'
-      puts self.report
+      return true
+    elsif self.isOnTable
+      # only execute these commands after the robot has been on the table
+      if command == 'MOVE'
+        self.move
+      elsif command == 'LEFT'
+        self.turnLeft
+      elsif command == 'RIGHT'
+        self.turnRight
+      elsif command == 'REPORT'
+        puts self.report
+      end
+      return true
+    else
+      return false
     end
   end
 
@@ -75,7 +86,7 @@ class Robot
   end
 
   def report()
-    if (!@x.nil? && !@y.nil? && !@f.nil?)
+    if self.isOnTable
       return @x.to_s + ',' + @y.to_s + ',' + @f
     else
       return 'Robot is not on the table'
