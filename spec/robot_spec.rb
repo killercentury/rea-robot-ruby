@@ -1,24 +1,6 @@
 require 'robot'
 
 RSpec.describe Robot do
-  describe '#receiveCommand' do
-    context 'when it is a valid PLACE command' do
-      let(:robot) { Robot.new(0, 0, 'NORTH') }
-      let(:command) { 'PLACE 4,4,SOUTH' }
-      it 'executes the PLACE command' do
-        robot.receiveCommand(command)
-        expect(robot.report).to eq('4,4,SOUTH')
-      end
-    end
-    context 'when it is an invalid PLACE command' do
-      let(:robot) { Robot.new(0, 0, 'NORTH') }
-      let(:command) { 'PLACE 5,0,NORTH' }
-      it 'ignores the PLACE command' do
-        robot.receiveCommand(command)
-        expect(robot.report).not_to eq('5,0,NORTH')
-      end
-    end
-  end
   describe '#set' do
     it 'is set to a position and orientation' do
       robot = Robot.new
@@ -133,6 +115,48 @@ RSpec.describe Robot do
       robot = Robot.new
       robot.set(2, 3, 'EAST')
       expect(robot.report).to eq('2,3,EAST')
+    end
+  end
+  describe '#receiveCommand' do
+    context 'when it is a valid PLACE command' do
+      let(:robot) { Robot.new(0, 0, 'NORTH') }
+      let(:command) { 'PLACE 4,4,SOUTH' }
+      it 'executes the PLACE command' do
+        robot.receiveCommand(command)
+        expect(robot.report).to eq('4,4,SOUTH')
+      end
+    end
+    context 'when it is an invalid PLACE command' do
+      let(:robot) { Robot.new(0, 0, 'NORTH') }
+      let(:command) { 'PLACE 5,0,NORTH' }
+      it 'ignores the PLACE command' do
+        robot.receiveCommand(command)
+        expect(robot.report).not_to eq('5,0,NORTH')
+      end
+    end
+    context 'when it is a MOVE command' do
+      let(:robot) { Robot.new(0, 0, 'NORTH') }
+      let(:command) { 'MOVE' }
+      it 'executes the MOVE command' do
+        robot.receiveCommand(command)
+        expect(robot.report).to eq('0,1,NORTH')
+      end
+    end
+    context 'when it is a LEFT command' do
+      let(:robot) { Robot.new(0, 0, 'NORTH') }
+      let(:command) { 'LEFT' }
+      it 'executes the LEFT command' do
+        robot.receiveCommand(command)
+        expect(robot.report).to eq('0,0,WEST')
+      end
+    end
+    context 'when it is a RIGHT command' do
+      let(:robot) { Robot.new(0, 0, 'NORTH') }
+      let(:command) { 'RIGHT' }
+      it 'executes the RIGHT command' do
+        robot.receiveCommand(command)
+        expect(robot.report).to eq('0,0,EAST')
+      end
     end
   end
 end

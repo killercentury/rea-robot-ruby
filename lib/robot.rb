@@ -17,8 +17,13 @@ class Robot
     match = /^PLACE ([0-4]),([0-4]),(NORTH|EAST|SOUTH|WEST)/.match(command)
     if match
       self.set(match[1].to_i, match[2].to_i, match[3])
-    end
-    if command == 'REPORT'
+    elsif command == 'MOVE'
+      self.move
+    elsif command == 'LEFT'
+      self.turnLeft
+    elsif command == 'RIGHT'
+      self.turnRight
+    elsif command == 'REPORT'
       puts self.report
     end
   end
