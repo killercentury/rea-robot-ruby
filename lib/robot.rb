@@ -14,7 +14,7 @@ class Robot
   # get the command from user and execute it if it is valid
   def receiveCommand(command)
     # match the 'PLACE' command
-    match = /^PLACE ([0-4]),([0-4]),(NORTH|EAST|SOUTH|WEST)/.match(command)
+    match = /^PLACE ([0-4]),([0-4]),(NORTH|EAST|SOUTH|WEST)$/.match(command)
     if match
       self.set(match[1].to_i, match[2].to_i, match[3])
     elsif command == 'MOVE'
@@ -75,7 +75,11 @@ class Robot
   end
 
   def report()
-    return @x.to_s + ',' + @y.to_s + ',' + @f
+    if (!@x.nil? && !@y.nil? && !@f.nil?)
+      return @x.to_s + ',' + @y.to_s + ',' + @f
+    else
+      return 'Robot is not on the table'
+    end
   end
 
 end
