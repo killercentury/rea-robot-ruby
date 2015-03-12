@@ -25,12 +25,45 @@ Feature: App can read in commands
     And I type "PLACE <X>,<Y>,<F>"
     And I type "REPORT"
     And I close the stdin stream
-    Then the output should not contain "<OUTPUT>"
+    Then the output should contain ""
     
     Examples:
-      | X   | Y   | F     | OUTPUT    |
-      | 0   | 5   | NORTH | 0,5,NORTH |
-      | -1  | 4   | EAST  | -1,4,EAST |
-      | 5   | 3   | SOUTH | 5,3,SOUTH |
-      | 2   | -1  | WEST  | 2,-1,WEST |
-      | 1   | 1   | HELLO | 1,1,HELLO |
+      | X   | Y   | F     |
+      | 0   | 5   | NORTH |
+      | -1  | 4   | EAST  |
+      | 5   | 3   | SOUTH |
+      | 2   | -1  | WEST  |
+      | 1   | 1   | HELLO |
+
+  Scenario: Receive "MOVE" command after a valid "PLACE" command
+    Given I run `app.rb` interactively
+    And I type "PLACE 0,0,NORTH"
+    And I type "MOVE"
+    And I type "REPORT"
+    And I close the stdin stream
+    Then the output should contain "0,1,NORTH"
+
+  Scenario: Receive "LEFT" command after a valid "PLACE" command
+    Given I run `app.rb` interactively
+    And I type "PLACE 0,0,NORTH"
+    And I type "LEFT"
+    And I type "REPORT"
+    And I close the stdin stream
+    Then the output should contain "0,0,WEST"
+
+  Scenario: Receive "LEFT" command after a valid "PLACE" command
+    Given I run `app.rb` interactively
+    And I type "PLACE 0,0,NORTH"
+    And I type "RIGHT"
+    And I type "REPORT"
+    And I close the stdin stream
+    Then the output should contain "0,0,EAST"
+
+  Scenario: Receive other commands before a valid "PLACE" command
+    Given I run `app.rb` interactively
+    And I type "MOVE"
+    And I type "LEFT"
+    And I type "RIGHT"
+    And I type "REPORT"
+    And I close the stdin stream
+    Then the output should contain ""
