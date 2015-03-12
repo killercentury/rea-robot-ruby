@@ -39,14 +39,14 @@ class Robot
     end
   end
 
-  # respond to the "PLACE" command and set to the specified position and orientation
+  # respond to the "PLACE" command and set to the specified position and facing
   def set(x, y, f)
     @x = x
     @y = y
     @f = f
   end
 
-  # move forward based on the current orientation
+  # move forward based on the current facing
   def move
     if @f == 'NORTH'
       @y += 1
@@ -59,7 +59,7 @@ class Robot
     end
   end
 
-  # turn left based on the current orientation
+  # turn left based on the current facing
   def turnLeft
     if @f == 'NORTH'
       @f = 'WEST'
@@ -72,7 +72,7 @@ class Robot
     end
   end
 
-  # turn right based on the current orientation
+  # turn right based on the current facing
   def turnRight
     if @f == 'NORTH'
       @f = 'EAST'
