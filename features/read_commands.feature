@@ -59,7 +59,7 @@ Feature: App can read in commands
     And I close the stdin stream
     Then the output should contain "0,0,EAST"
 
-  Scenario: Receive other commands before a valid "PLACE" command
+  Scenario: Receive other commands without a valid "PLACE" command
     Given I run `app.rb` interactively
     And I type "MOVE"
     And I type "LEFT"
@@ -67,3 +67,36 @@ Feature: App can read in commands
     And I type "REPORT"
     And I close the stdin stream
     Then the output should contain ""
+
+  Scenario: Receive commands while the first valid "PLACE" command is in the middle
+    Given I run `app.rb` interactively
+    And I type "MOVE"
+    And I type "LEFT"
+    And I type "REPORT"
+    And I type "PLACE 0,0,NORTH"
+    And I type "REPORT"
+    And I type "MOVE"
+    And I type "RIGHT"
+    And I type "REPORT"
+    And I close the stdin stream
+    Then the output should contain:
+      """
+      0,0,NORTH
+      0,1,EAST
+      """
+
+  Scenario: Receive several "PLACE" commands with an invalid one in the middle
+    Given I run `app.rb` interactively
+    And I type "PLACE 0,0,NORTH"
+    And I type "REPORT"
+    And I type "PLACE 5,0,EAST"
+    And I type "REPORT"
+    And I type "PLACE 4,0,SOUTH"
+    And I type "REPORT"
+    And I close the stdin stream
+    Then the output should not contain "5,0,EAST"
+    Then the output should contain:
+      """
+      0,0,NORTH
+      4,0,SOUTH
+      """
