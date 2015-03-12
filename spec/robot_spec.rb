@@ -134,17 +134,15 @@ RSpec.describe Robot do
   describe '#receiveCommand' do
     context 'when it is a valid PLACE command' do
       let(:robot) { Robot.new(0, 0, 'NORTH') }
-      let(:command) { 'PLACE 4,4,SOUTH' }
       it 'executes the PLACE command' do
-        robot.receiveCommand(command)
+        expect(robot.receiveCommand('PLACE 4,4,SOUTH')).to eq(true)
         expect(robot.report).to eq('4,4,SOUTH')
       end
     end
     context 'when it is an invalid PLACE command' do
       let(:robot) { Robot.new(0, 0, 'NORTH') }
-      let(:command) { 'PLACE 5,0,NORTH' }
       it 'ignores the PLACE command' do
-        robot.receiveCommand(command)
+        expect(robot.receiveCommand('PLACE 5,0,NORTH')).to eq(false)
         expect(robot.report).not_to eq('5,0,NORTH')
       end
     end

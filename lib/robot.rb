@@ -32,6 +32,9 @@ class Robot
         self.turnRight
       elsif command == 'REPORT'
         puts self.report
+      else
+        # if it receives an invalid PLACE command
+        return false
       end
       return true
     else
