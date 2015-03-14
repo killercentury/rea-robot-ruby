@@ -44,7 +44,7 @@ RSpec.describe Robot do
   end
   describe '#turnLeft' do
     context 'when it faces the north' do
-      it 'rotates counterclockwise 90% to the west' do
+      it 'rotates counterclockwise 90 degrees to the west' do
         robot = Robot.new
         robot.set(2, 2, 'NORTH')
         robot.turnLeft
@@ -52,7 +52,7 @@ RSpec.describe Robot do
       end
     end
     context 'when it faces the east' do
-      it 'rotates counterclockwise 90% to the north' do
+      it 'rotates counterclockwise 90 degrees to the north' do
         robot = Robot.new
         robot.set(2, 2, 'EAST')
         robot.turnLeft
@@ -60,7 +60,7 @@ RSpec.describe Robot do
       end
     end
     context 'when it faces the south' do
-      it 'rotates counterclockwise 90% to the east' do
+      it 'rotates counterclockwise 90 degress to the east' do
         robot = Robot.new
         robot.set(2, 2, 'SOUTH')
         robot.turnLeft
@@ -68,7 +68,7 @@ RSpec.describe Robot do
       end
     end
     context 'when it faces the west' do
-      it 'rotates counterclockwise 90% to the south' do
+      it 'rotates counterclockwise 90 degrees to the south' do
         robot = Robot.new
         robot.set(2, 2, 'WEST')
         robot.turnLeft
@@ -78,7 +78,7 @@ RSpec.describe Robot do
   end
   describe '#turnRight' do
     context 'when it faces the north' do
-      it 'rotates clockwise 90% to the east' do
+      it 'rotates clockwise 90 degrees to the east' do
         robot = Robot.new
         robot.set(2, 2, 'NORTH')
         robot.turnRight
@@ -86,7 +86,7 @@ RSpec.describe Robot do
       end
     end
     context 'when it faces the east' do
-      it 'rotates clockwise 90% to the south' do
+      it 'rotates clockwise 90 degrees to the south' do
         robot = Robot.new
         robot.set(2, 2, 'EAST')
         robot.turnRight
@@ -94,7 +94,7 @@ RSpec.describe Robot do
       end
     end
     context 'when it faces the south' do
-      it 'rotates clockwise 90% to the west' do
+      it 'rotates clockwise 90 degrees to the west' do
         robot = Robot.new
         robot.set(2, 2, 'SOUTH')
         robot.turnRight
@@ -102,7 +102,7 @@ RSpec.describe Robot do
       end
     end
     context 'when it faces the west' do
-      it 'rotates clockwise 90% to the north' do
+      it 'rotates clockwise 90 degrees to the north' do
         robot = Robot.new
         robot.set(2, 2, 'WEST')
         robot.turnRight
