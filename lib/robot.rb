@@ -11,11 +11,14 @@ class Robot
     @f = f
   end
 
+  # check the robot if it is on the table or initialized
   def isOnTable
     return !@x.nil? && !@y.nil? && !@f.nil?
   end
 
-  # get the command from user and execute it if it is valid
+  # get the command from user
+  # execute it if it is valid and return true
+  # ignore it if it is invalid and return false
   def receiveCommand(command)
     # match the 'PLACE' command
     match = /^PLACE ([0-4]),([0-4]),(NORTH|EAST|SOUTH|WEST)$/.match(command)
@@ -47,9 +50,10 @@ class Robot
     @x = x
     @y = y
     @f = f
+    self
   end
 
-  # move forward based on the current facing
+  # move one unit forward based on the current facing
   def move
     if @f == 'NORTH'
       @y += 1
@@ -60,6 +64,7 @@ class Robot
     elsif @f == 'WEST'
       @x -= 1
     end
+    self
   end
 
   # turn left based on the current facing
@@ -73,6 +78,7 @@ class Robot
     elsif @f == 'WEST'
       @f = 'SOUTH'
     end
+    self
   end
 
   # turn right based on the current facing
@@ -86,6 +92,7 @@ class Robot
     elsif @f == 'WEST'
       @f = 'NORTH'
     end
+    self
   end
 
   def report()
