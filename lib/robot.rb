@@ -1,14 +1,17 @@
 class Robot
 
-  # the boundary should be able to scale but not fixed
   attr_reader :x
   attr_reader :y
   attr_reader :f
 
-  def initialize(x = nil, y = nil, f = nil)
+  def initialize(x = nil, y = nil, f = nil, maxx = 4, maxy = 4)
     @x = x
     @y = y
     @f = f
+    # the max value for x
+    @maxx = maxx
+    # the max value for y
+    @maxy = maxy
   end
 
   # check the robot if it is on the table or initialized
@@ -56,13 +59,21 @@ class Robot
   # move one unit forward based on the current facing
   def move
     if @f == 'NORTH'
-      @y += 1
+      if @maxy - @y != 0
+        @y += 1
+      end
     elsif @f == 'EAST'
-      @x += 1
+      if @maxx - @x != 0
+        @x += 1
+      end
     elsif @f == 'SOUTH'
-      @y -= 1
+      if @y != 0
+        @y -= 1
+      end
     elsif @f == 'WEST'
-      @x -= 1
+      if @x != 0
+        @x -= 1
+      end
     end
     self
   end

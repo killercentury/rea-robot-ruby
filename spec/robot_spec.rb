@@ -59,39 +59,83 @@ RSpec.describe Robot do
 
   describe '#move' do
     context 'when it faces the north' do
-      let(:robot) { Robot.new(0, 0, 'NORTH') }
-      it 'moves 1 unit to the north' do
-        robot.move
-        expect(robot.x).to eq(0)
-        expect(robot.y).to eq(1)
-        expect(robot.f).to eq('NORTH')
+      context 'when it is not on the northern boundary' do
+        let(:robot) { Robot.new(0, 0, 'NORTH') }
+        it 'moves 1 unit to the north' do
+          robot.move
+          expect(robot.x).to eq(0)
+          expect(robot.y).to eq(1)
+          expect(robot.f).to eq('NORTH')
+        end
+      end
+      context 'when it is on the northern boundary' do
+        let(:robot) { Robot.new(0, 4, 'NORTH') }
+        it 'does not move forward' do
+          robot.move
+          expect(robot.x).to eq(0)
+          expect(robot.y).to eq(4)
+          expect(robot.f).to eq('NORTH')
+        end
       end
     end
     context 'when it faces the east' do
-      let(:robot) { Robot.new(1, 1, 'EAST') }
-      it 'moves 1 unit to the east' do
-        robot.move
-        expect(robot.x).to eq(2)
-        expect(robot.y).to eq(1)
-        expect(robot.f).to eq('EAST')
+      context 'when it is not on the eastern boundary' do
+        let(:robot) { Robot.new(1, 1, 'EAST') }
+        it 'moves 1 unit to the east' do
+          robot.move
+          expect(robot.x).to eq(2)
+          expect(robot.y).to eq(1)
+          expect(robot.f).to eq('EAST')
+        end
+      end
+      context 'when it is on the eastern boundary' do
+        let(:robot) { Robot.new(4, 1, 'EAST') }
+        it 'does not move forward' do
+          robot.move
+          expect(robot.x).to eq(4)
+          expect(robot.y).to eq(1)
+          expect(robot.f).to eq('EAST')
+        end
       end
     end
     context 'when it faces the south' do
-      let(:robot) { Robot.new(4, 4, 'SOUTH') }
-      it 'moves 1 unit to the south' do
-        robot.move
-        expect(robot.x).to eq(4)
-        expect(robot.y).to eq(3)
-        expect(robot.f).to eq('SOUTH')
+      context 'when it is not on the southern boundary' do
+        let(:robot) { Robot.new(4, 4, 'SOUTH') }
+        it 'moves 1 unit to the south' do
+          robot.move
+          expect(robot.x).to eq(4)
+          expect(robot.y).to eq(3)
+          expect(robot.f).to eq('SOUTH')
+        end
+      end
+      context 'when it is on the southern boundary' do
+        let(:robot) { Robot.new(4, 0, 'SOUTH') }
+        it 'does not move forward' do
+          robot.move
+          expect(robot.x).to eq(4)
+          expect(robot.y).to eq(0)
+          expect(robot.f).to eq('SOUTH')
+        end
       end
     end
     context 'when it faces the west' do
-      let(:robot) { Robot.new(3, 3, 'WEST') }
-      it 'moves 1 unit to the west' do
-        robot.move
-        expect(robot.x).to eq(2)
-        expect(robot.y).to eq(3)
-        expect(robot.f).to eq('WEST')
+      context 'when it is not on the western boundary' do
+        let(:robot) { Robot.new(3, 3, 'WEST') }
+        it 'moves 1 unit to the west' do
+          robot.move
+          expect(robot.x).to eq(2)
+          expect(robot.y).to eq(3)
+          expect(robot.f).to eq('WEST')
+        end
+      end
+      context 'when it is on the western boundary' do
+        let(:robot) { Robot.new(0, 3, 'WEST') }
+        it 'does not move forward' do
+          robot.move
+          expect(robot.x).to eq(0)
+          expect(robot.y).to eq(3)
+          expect(robot.f).to eq('WEST')
+        end
       end
     end
   end
