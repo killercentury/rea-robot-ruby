@@ -34,7 +34,7 @@ class Robot
       elsif command == 'RIGHT'
         self.turnRight
       elsif command == 'REPORT'
-        puts self.report
+        self.report
       else
         # if it receives an invalid PLACE command
         return false
@@ -95,12 +95,20 @@ class Robot
     self
   end
 
-  def report()
+  # return the string representing the object
+  # also used by test cases to verify the result of any action
+  def getStr
     if self.isOnTable
       return @x.to_s + ',' + @y.to_s + ',' + @f
     else
       return 'Robot is not on the table'
     end
+  end
+
+  # report the current position and facing by printing them as string to the console
+  def report
+    puts self.getStr
+    self
   end
 
 end
