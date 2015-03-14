@@ -1,123 +1,175 @@
 require 'robot'
 
 RSpec.describe Robot do
+
+  describe '#initialize' do
+    context 'when there is no argument' do
+      it 'creates a robot object without intial positionn and facing' do
+        robot = Robot.new
+        expect(robot.x).to be_nil
+        expect(robot.y).to be_nil
+        expect(robot.f).to be_nil
+      end
+    end
+    context 'when there is argument' do
+      robot = Robot.new(1, 3, 'NORTH')
+      it 'creates a robot object with intial positionn and facing' do
+        expect(robot.x).to eq(1)
+        expect(robot.y).to eq(3)
+        expect(robot.f).to eq('NORTH')
+      end
+    end
+  end
+
   describe '#getStr' do
-    it 'get its current position and facing as string' do
-      robot = Robot.new
-      robot.set(2, 3, 'EAST')
-      expect(robot.getStr).to eq('2,3,EAST')
+    context 'when it has position and facing' do
+      let(:robot) { Robot.new(1, 3, 'NORTH') }
+      it 'get its current position and facing as string' do
+        expect(robot.getStr).to eq('1,3,NORTH')
+      end
+    end
+    context 'when it has no position and facing' do
+      let(:robot) { Robot.new }
+      it 'get its current position and facing as string' do
+        expect(robot.getStr).to eq('Robot is not on the table')
+      end
     end
   end
 
   describe '#set' do
-    it 'is set to a position and facing' do
-      robot = Robot.new
-      robot.set(0, 1, 'NORTH')
-      expect(robot.getStr).to eq('0,1,NORTH')
+    context 'when it has position and facing' do
+      let(:robot) { Robot.new(0, 4, 'EAST') }
+      it 'is set to the new position and facing' do
+        robot.set(3, 1, 'SOUTH')
+        expect(robot.x).to eq(3)
+        expect(robot.y).to eq(1)
+        expect(robot.f).to eq('SOUTH')
+      end
+    end
+    context 'when it has no position and facing' do
+      let(:robot) { Robot.new }
+      it 'is set to a position and facing' do
+        robot.set(0, 4, 'WEST')
+        expect(robot.x).to eq(0)
+        expect(robot.y).to eq(4)
+        expect(robot.f).to eq('WEST')
+      end
     end
   end
 
   describe '#move' do
     context 'when it faces the north' do
+      let(:robot) { Robot.new(0, 0, 'NORTH') }
       it 'moves 1 unit to the north' do
-        robot = Robot.new
-        robot.set(0, 0, 'NORTH')
         robot.move
-        expect(robot.getStr).to eq('0,1,NORTH')
+        expect(robot.x).to eq(0)
+        expect(robot.y).to eq(1)
+        expect(robot.f).to eq('NORTH')
       end
     end
     context 'when it faces the east' do
+      let(:robot) { Robot.new(1, 1, 'EAST') }
       it 'moves 1 unit to the east' do
-        robot = Robot.new
-        robot.set(0, 0, 'EAST')
         robot.move
-        expect(robot.getStr).to eq('1,0,EAST')
+        expect(robot.x).to eq(2)
+        expect(robot.y).to eq(1)
+        expect(robot.f).to eq('EAST')
       end
     end
     context 'when it faces the south' do
+      let(:robot) { Robot.new(4, 4, 'SOUTH') }
       it 'moves 1 unit to the south' do
-        robot = Robot.new
-        robot.set(4, 4, 'SOUTH')
         robot.move
-        expect(robot.getStr).to eq('4,3,SOUTH')
+        expect(robot.x).to eq(4)
+        expect(robot.y).to eq(3)
+        expect(robot.f).to eq('SOUTH')
       end
     end
     context 'when it faces the west' do
+      let(:robot) { Robot.new(3, 3, 'WEST') }
       it 'moves 1 unit to the west' do
-        robot = Robot.new
-        robot.set(4, 4, 'WEST')
         robot.move
-        expect(robot.getStr).to eq('3,4,WEST')
+        expect(robot.x).to eq(2)
+        expect(robot.y).to eq(3)
+        expect(robot.f).to eq('WEST')
       end
     end
   end
 
   describe '#turnLeft' do
     context 'when it faces the north' do
+      let(:robot) { Robot.new(2, 2, 'NORTH') }
       it 'rotates counterclockwise 90 degrees to the west' do
-        robot = Robot.new
-        robot.set(2, 2, 'NORTH')
         robot.turnLeft
-        expect(robot.getStr).to eq('2,2,WEST')
+        expect(robot.x).to eq(2)
+        expect(robot.y).to eq(2)
+        expect(robot.f).to eq('WEST')
       end
     end
     context 'when it faces the east' do
+      let(:robot) { Robot.new(2, 2, 'EAST') }
       it 'rotates counterclockwise 90 degrees to the north' do
-        robot = Robot.new
-        robot.set(2, 2, 'EAST')
         robot.turnLeft
-        expect(robot.getStr).to eq('2,2,NORTH')
+        expect(robot.x).to eq(2)
+        expect(robot.y).to eq(2)
+        expect(robot.f).to eq('NORTH')
       end
     end
     context 'when it faces the south' do
+      let(:robot) { Robot.new(2, 2, 'SOUTH') }
       it 'rotates counterclockwise 90 degress to the east' do
-        robot = Robot.new
-        robot.set(2, 2, 'SOUTH')
         robot.turnLeft
-        expect(robot.getStr).to eq('2,2,EAST')
+        expect(robot.x).to eq(2)
+        expect(robot.y).to eq(2)
+        expect(robot.f).to eq('EAST')
       end
     end
     context 'when it faces the west' do
+      let(:robot) { Robot.new(2, 2, 'WEST') }
       it 'rotates counterclockwise 90 degrees to the south' do
-        robot = Robot.new
-        robot.set(2, 2, 'WEST')
         robot.turnLeft
-        expect(robot.getStr).to eq('2,2,SOUTH')
+        expect(robot.x).to eq(2)
+        expect(robot.y).to eq(2)
+        expect(robot.f).to eq('SOUTH')
       end
     end
   end
 
   describe '#turnRight' do
     context 'when it faces the north' do
+      let(:robot) { Robot.new(2, 2, 'NORTH') }
       it 'rotates clockwise 90 degrees to the east' do
-        robot = Robot.new
-        robot.set(2, 2, 'NORTH')
         robot.turnRight
-        expect(robot.getStr).to eq('2,2,EAST')
+        expect(robot.x).to eq(2)
+        expect(robot.y).to eq(2)
+        expect(robot.f).to eq('EAST')
       end
     end
     context 'when it faces the east' do
+      let(:robot) { Robot.new(2, 2, 'EAST') }
       it 'rotates clockwise 90 degrees to the south' do
-        robot = Robot.new
-        robot.set(2, 2, 'EAST')
         robot.turnRight
-        expect(robot.getStr).to eq('2,2,SOUTH')
+        expect(robot.x).to eq(2)
+        expect(robot.y).to eq(2)
+        expect(robot.f).to eq('SOUTH')
       end
     end
     context 'when it faces the south' do
+      let(:robot) { Robot.new(2, 2, 'SOUTH') }
       it 'rotates clockwise 90 degrees to the west' do
-        robot = Robot.new
-        robot.set(2, 2, 'SOUTH')
         robot.turnRight
-        expect(robot.getStr).to eq('2,2,WEST')
+        expect(robot.x).to eq(2)
+        expect(robot.y).to eq(2)
+        expect(robot.f).to eq('WEST')
       end
     end
     context 'when it faces the west' do
+      let(:robot) { Robot.new(2, 2, 'WEST') }
       it 'rotates clockwise 90 degrees to the north' do
-        robot = Robot.new
-        robot.set(2, 2, 'WEST')
         robot.turnRight
-        expect(robot.getStr).to eq('2,2,NORTH')
+        expect(robot.x).to eq(2)
+        expect(robot.y).to eq(2)
+        expect(robot.f).to eq('NORTH')
       end
     end
   end
@@ -126,13 +178,13 @@ RSpec.describe Robot do
     context 'when it is on the table' do
       let(:robot) { Robot.new(0, 0, 'NORTH') }
       it 'returns true' do
-      	expect(robot.isOnTable).to eq(true)
+        expect(robot.isOnTable).to eq(true)
       end
     end
     context 'when it is not on the table' do
       let(:robot) { Robot.new }
       it 'returns false' do
-      	expect(robot.isOnTable).to eq(false)
+        expect(robot.isOnTable).to eq(false)
       end
     end
   end
