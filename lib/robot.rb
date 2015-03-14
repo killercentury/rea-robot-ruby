@@ -1,9 +1,9 @@
 class Robot
 
   # the boundary should be able to scale but not fixed
-  @x
-  @y
-  @f
+  attr_reader :x
+  attr_reader :y
+  attr_reader :f
 
   def initialize(x = nil, y = nil, f = nil)
     @x = x
