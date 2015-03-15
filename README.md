@@ -35,3 +35,6 @@ Test coverage can be seen on top of this document or on this [Code Climate repos
 
 ### Builds
 The current build status can be seen on top of this document. And the builds history can be found on this [Travis CI repository](https://travis-ci.org/killercentury/rea-robot-ruby)
+
+### To Do
+Take an advantage of Reactive Extension [Rx.rb](https://github.com/ReactiveX/Rx.rb) to handle asynchronous input streams.
