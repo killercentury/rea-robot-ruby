@@ -7,3 +7,6 @@ rvm:
 script:
   - bundle exec rspec
   - bundle exec cucumber
+addons:
+  code_climate:
+    repo_token: a2ffd6e9333c7bd186a6d98e58e582b0ffb1f623e3c788a5656986ddc355c350
