@@ -1,5 +1,6 @@
 # rea-robot-ruby
 [![Build Status](https://travis-ci.org/killercentury/rea-robot-ruby.svg?branch=master)](https://travis-ci.org/killercentury/rea-robot-ruby)
+[![Test Coverage](https://codeclimate.com/github/killercentury/rea-robot-ruby/badges/coverage.svg)](https://codeclimate.com/github/killercentury/rea-robot-ruby)
 
 ### Run
 #### Pre-installed Ruby Env
