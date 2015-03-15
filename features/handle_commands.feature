@@ -3,28 +3,28 @@ Feature: App can read in commands and route to the related method to execute
   In order to control the robot
   As an user
   I want to send the commands
-  
+
   Scenario Outline: Receive valid "PLACE" command
     Given I run `app.rb` interactively
     And I type "PLACE <X>,<Y>,<F>"
     And I type "REPORT"
     And I close the stdin stream
     Then the output should contain "<OUTPUT>"
-    
+
     Examples:
       | X | Y | F     | OUTPUT    |
       | 0 | 4 | NORTH | 0,4,NORTH |
       | 1 | 3 | EAST  | 1,3,EAST  |
       | 2 | 2 | SOUTH | 2,2,SOUTH |
       | 4 | 0 | WEST  | 4,0,WEST  |
-    
+
   Scenario Outline: Receive invalid "PLACE" command
     Given I run `app.rb` interactively
     And I type "PLACE <X>,<Y>,<F>"
     And I type "REPORT"
     And I close the stdin stream
     Then the stdout should not contain anything
-    
+
     Examples:
       | X   | Y   | F     |
       | 0   | 5   | NORTH |
