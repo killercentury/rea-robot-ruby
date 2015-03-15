@@ -233,6 +233,21 @@ RSpec.describe Robot do
     end
   end
 
+  describe '#report' do
+    context 'when it is on the table' do
+      let(:robot) { Robot.new(0, 0, 'NORTH') }
+      it 'returns true' do
+        expect{robot.report}.to output(/0,0,NORTH/).to_stdout
+      end
+    end
+    context 'when it is not on the table' do
+      let(:robot) { Robot.new }
+      it 'returns false' do
+        expect{robot.isOnTable}.to_not output.to_stdout
+      end
+    end
+  end
+
   describe '#receiveCommand' do
     context 'when it is a valid PLACE command' do
       let(:robot) { Robot.new(0, 0, 'NORTH') }
