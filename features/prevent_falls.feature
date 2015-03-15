@@ -30,3 +30,10 @@ Feature: Robot can prevent itself from falling to destruction
     When I type "REPORT"
     And I close the stdin stream
     Then the output should contain "0,1,NORTH"
+
+  Scenario: Receive multiple random commands
+  	Given I run `app.rb` interactively
+  	And the robot receives "100" random commands
+  	When I type "REPORT"
+  	And I close the stdin stream
+  	Then the output should match /^([0-4]),([0-4]),(NORTH|EAST|SOUTH|WEST)$/
