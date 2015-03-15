@@ -4,16 +4,16 @@ RSpec.describe Robot do
 
   describe '#initialize' do
     context 'when there is no argument' do
-      it 'creates a robot object without intial positionn and facing' do
+      it 'creates a robot object without initial positionn and facing' do
         robot = Robot.new
         expect(robot.x).to be_nil
         expect(robot.y).to be_nil
         expect(robot.f).to be_nil
       end
     end
-    context 'when there is argument' do
+    context 'when there are arguments' do
       robot = Robot.new(1, 3, 'NORTH')
-      it 'creates a robot object with intial positionn and facing' do
+      it 'creates a robot object with intial position and facing' do
         expect(robot.x).to eq(1)
         expect(robot.y).to eq(3)
         expect(robot.f).to eq('NORTH')
@@ -43,15 +43,15 @@ RSpec.describe Robot do
         expect(robot.getStr).to eq('1,3,NORTH')
       end
     end
-    context 'when has not been on the table' do
+    context 'when it has not been on the table' do
       let(:robot) { Robot.new }
-      it 'return its state as string' do
+      it 'return its uninitialized state as string' do
         expect(robot.getStr).to eq('Robot has not been on the table')
       end
     end
-    context 'when has fallen from the table' do
+    context 'when it has fallen from the table' do
       let(:robot) { Robot.new(5, -1, 'NORTH') }
-      it 'return its state as string' do
+      it 'return its fallen state as string' do
         expect(robot.getStr).to eq('Robot has fallen from the table')
       end
     end
@@ -182,12 +182,23 @@ RSpec.describe Robot do
       end
     end
     context 'when it is not on the table' do
-      let(:robot) { Robot.new }
-      it 'stays the same' do
-        robot.move
-        expect(robot.x).to be_nil
-        expect(robot.y).to be_nil
-        expect(robot.f).to be_nil
+      context 'when it has not been on the table' do
+        let(:robot) { Robot.new }
+        it 'stays the same' do
+          robot.move
+          expect(robot.x).to be_nil
+          expect(robot.y).to be_nil
+          expect(robot.f).to be_nil
+        end
+      end
+      context 'when it has fallen from the table' do
+        let(:robot) { Robot.new(-1, -2, 'SOUTH') }
+        it 'stays the same' do
+          robot.move
+          expect(robot.x).to eq(-1)
+          expect(robot.y).to eq(-2)
+          expect(robot.f).to eq('SOUTH')
+        end
       end
     end
   end
@@ -232,12 +243,23 @@ RSpec.describe Robot do
       end
     end
     context 'when it is not on the table' do
-      let(:robot) { Robot.new }
-      it 'stays the same' do
-        robot.turnLeft
-        expect(robot.x).to be_nil
-        expect(robot.y).to be_nil
-        expect(robot.f).to be_nil
+      context 'when it has not been on the table' do
+        let(:robot) { Robot.new }
+        it 'stays the same' do
+          robot.turnLeft
+          expect(robot.x).to be_nil
+          expect(robot.y).to be_nil
+          expect(robot.f).to be_nil
+        end
+      end
+      context 'when it has fallen from the table' do
+        let(:robot) { Robot.new(5, 1, 'WEST') }
+        it 'stays the same' do
+          robot.move
+          expect(robot.x).to eq(5)
+          expect(robot.y).to eq(1)
+          expect(robot.f).to eq('WEST')
+        end
       end
     end
   end
@@ -282,13 +304,25 @@ RSpec.describe Robot do
       end
     end
     context 'when it is not on the table' do
-      let(:robot) { Robot.new }
-      it 'stays the same' do
-        robot.turnRight
-        expect(robot.x).to be_nil
-        expect(robot.y).to be_nil
-        expect(robot.f).to be_nil
+      context 'when it has not been on the table' do
+        let(:robot) { Robot.new }
+        it 'stays the same' do
+          robot.turnRight
+          expect(robot.x).to be_nil
+          expect(robot.y).to be_nil
+          expect(robot.f).to be_nil
+        end
       end
+      context 'when it has fallen from the table' do
+        let(:robot) { Robot.new(1, 5, 'EAST') }
+        it 'stays the same' do
+          robot.move
+          expect(robot.x).to eq(1)
+          expect(robot.y).to eq(5)
+          expect(robot.f).to eq('EAST')
+        end
+      end
+
     end
   end
 
@@ -372,6 +406,15 @@ RSpec.describe Robot do
           expect(robot.x).to eq(0)
           expect(robot.y).to eq(0)
           expect(robot.f).to eq('EAST')
+        end
+      end
+      context 'when it receives a REPORT command' do
+        it 'executes the REPORT command' do
+          expect(robot.receiveCommand('REPORT')).to eq(true)
+          expect{robot.receiveCommand('REPORT')}.to output(/0,0,NORTH/).to_stdout
+          expect(robot.x).to eq(0)
+          expect(robot.y).to eq(0)
+          expect(robot.f).to eq('NORTH')
         end
       end
     end

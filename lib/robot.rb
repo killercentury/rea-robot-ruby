@@ -5,6 +5,7 @@ class Robot
   attr_reader :f
 
   def initialize(x = nil, y = nil, f = nil, minx = 0, maxx = 4, miny = 0, maxy = 4)
+    # do not restrict the value of x, y, f in order to inject failure
     @x = x
     @y = y
     @f = f
