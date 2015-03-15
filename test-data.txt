@@ -1,0 +1,41 @@
+Example 1 (All commands are valid):
+----------
+PLACE 0,0,NORTH
+MOVE
+RIGHT
+MOVE
+LEFT
+MOVE
+LEFT
+REPORT
+----------
+1,2,WEST
+
+
+Example 2 (With invalid commands):
+----------
+MOVE
+LEFT
+PLACE 1,3,EAST
+MOVE
+RIGHT
+MOVE
+PLACE 5,1,EAST
+REPORT
+----------
+2,2,SOUTH
+
+
+Example 3 (On the boundary):
+----------
+PLACE 4,4,EAST
+MOVE
+LEFT
+MOVE
+LEFT
+MOVE
+RIGHT
+MOVE
+REPORT
+----------
+3,4,NORTH
