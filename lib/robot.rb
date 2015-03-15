@@ -12,6 +12,7 @@ class Robot
     @maxx = maxx
     # the max value for y
     @maxy = maxy
+    @facings = ['NORTH', 'EAST', 'SOUTH', 'WEST']
   end
 
   # check the robot if it is on the table or initialized
@@ -50,9 +51,11 @@ class Robot
 
   # respond to the "PLACE" command and set to the specified position and facing
   def set(x, y, f)
-    @x = x
-    @y = y
-    @f = f
+    if @maxx - x >= 0 && @maxy - y >= 0 && @facings.include?(f)
+      @x = x
+      @y = y
+      @f = f
+    end
     self
   end
 
