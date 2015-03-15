@@ -1,12 +1,11 @@
-Feature: App can read in commands
+Feature: App can read in commands and route to the related method to execute
 
+  In order to control the robot
   As an user
-  I want to enter the commands
-  So that I can control the robot
+  I want to send the commands
   
   Scenario Outline: Receive valid "PLACE" command
-    Given I am using the command line
-    And I run `app.rb` interactively
+    Given I run `app.rb` interactively
     And I type "PLACE <X>,<Y>,<F>"
     And I type "REPORT"
     And I close the stdin stream
@@ -20,12 +19,11 @@ Feature: App can read in commands
       | 4 | 0 | WEST  | 4,0,WEST  |
     
   Scenario Outline: Receive invalid "PLACE" command
-    Given I am using the command line
-    And I run `app.rb` interactively
+    Given I run `app.rb` interactively
     And I type "PLACE <X>,<Y>,<F>"
     And I type "REPORT"
     And I close the stdin stream
-    Then the output should contain ""
+    Then the stdout should not contain anything
     
     Examples:
       | X   | Y   | F     |
@@ -66,7 +64,7 @@ Feature: App can read in commands
     And I type "RIGHT"
     And I type "REPORT"
     And I close the stdin stream
-    Then the output should contain ""
+    Then the stdout should not contain anything
 
   Scenario: Receive commands while the first valid "PLACE" command is in the middle
     Given I run `app.rb` interactively
